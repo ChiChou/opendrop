@@ -73,6 +73,9 @@ class AirDropBrowser:
         self.browser = None
         self.zeroconf.close()
 
+    def update_service(self, zeroconf, service_type, name):
+        pass
+
     def add_service(self, zeroconf, service_type, name):
         info = zeroconf.get_service_info(service_type, name)
         logger.debug(f"Add service {name}")
@@ -181,6 +184,8 @@ class AirDropClient:
 
         ask_body["Files"] = [e for e in file_entries(file_path)]
         ask_body["Items"] = []
+        ask_body["SenderIsMe"] = True
+        ask_body["AutoAccept"] = True
 
         ask_binary = plistlib.dumps(
             ask_body, fmt=plistlib.FMT_BINARY  # pylint: disable=no-member
